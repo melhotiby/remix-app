@@ -19,6 +19,7 @@ export default function Index() {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Welcome to Remix</h1>
+      <>I am newwwwwwwww!</>
       <ul>
         {posts.map((post) => (
           <li key={post.title}>
