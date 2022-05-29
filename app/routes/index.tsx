@@ -1,11 +1,10 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { getPosts } from '~/services/posts.server'
-import type { Post } from '~/services/posts.server'
 import { Post as PostComponent } from '~/components/Post'
 
 type LoaderData = {
-  posts: Post[]
+  posts: Awaited<ReturnType<typeof getPosts>>
 }
 
 export const loader: LoaderFunction = async () => {
@@ -23,7 +22,11 @@ export default function Index() {
       <ul>
         {posts.map((post) => (
           <li key={post.title}>
-            <PostComponent header={post.title}>{post.body}</PostComponent>
+            <PostComponent
+              header={post?.title}
+              authorName={post?.author?.email}>
+              {post.body}
+            </PostComponent>
           </li>
         ))}
       </ul>
